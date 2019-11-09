@@ -8,7 +8,25 @@
 
 <script>
     export default {
-        data:()=>({ })
+        data:()=>({
+            tasks:[
+                {
+                    id:1,
+                    name: 'Go to shop',
+                    complete: false
+                },
+                {
+                    id:2,
+                    name: 'Get bananes',
+                    complete: false
+                },
+                {
+                    id:3,
+                    name: 'Get apples',
+                    complete: false
+                }
+            ]
+        })
     }
 </script>
 

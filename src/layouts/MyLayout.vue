@@ -21,7 +21,7 @@
 
     <q-footer elevated>
       <q-tabs>
-        <q-route-tab v-for="nav in navs" :key="nav" 
+        <q-route-tab v-for="nav in navs" :key="nav.label" 
            :icon="nav.icon" 
            :label="nav.label" 
            :to="nav.to" exact
@@ -40,7 +40,7 @@
 
         <q-item 
          v-for="nav in navs"
-         :key="nav"
+         :key="nav.to"
          class="text-grey-4"
          clickable :to="nav.to" exact 
          >

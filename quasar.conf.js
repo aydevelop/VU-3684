@@ -42,13 +42,6 @@ module.exports = function (ctx) {
       all: 'auto',
 
       components: [
-        'QHeader',
-        'QFooter',
-        'QTabs',
-        'QRouteTab',
-        'QList',
-        'QItem',
-        'QItemLabel'
       ],
       directives: [],
 

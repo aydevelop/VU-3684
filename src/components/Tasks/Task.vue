@@ -1,5 +1,6 @@
 <template>
     <q-item
+        @click.prevent="updateTask({ id: id, updates:{ completed: task.completed }})" 
         :class="task.complete ? 'bg-green-1': 'bg-orange-1'"
         tag="label" v-ripple>
             <q-item-section side top>
@@ -22,9 +23,14 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+
     export default {
         props: ['task','id'],
-        data:()=>({ })
+        data:()=>({ }),
+        methods:{
+            ...mapActions('tasks', ['updateTask'])
+        }
     }
 </script>
 

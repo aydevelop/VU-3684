@@ -45,11 +45,18 @@ const state = {
 }
 
 const mutations = {
-
+    updateTask(state, payload){
+        console.log('111')
+        console.log(JSON.stringify(state.tasks[payload.id]))
+        console.log('222')
+        Object.assign(state.tasks[payload.id], payload)
+    }
 }
 
 const actions = {
-
+    updateTask({ commit }, payload){
+        commit('updateTask', payload)
+    }
 }
 
 const getters = {

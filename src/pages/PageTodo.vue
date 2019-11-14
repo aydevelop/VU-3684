@@ -22,6 +22,9 @@
         },
         computed:{
             ...mapGetters('tasks', ['tasks'])
+            // tasks(){
+            //     return this.$store.getters['tasks/tasks']
+            // }
         }
     }
 </script>

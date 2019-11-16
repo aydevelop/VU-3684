@@ -11,7 +11,7 @@
 
             <q-item-section>
                 <q-item-label :class="{'text-strike' : task.complete}">
-                    {{ task.name }} / {{ id }}
+                    {{ task.name }}
                 </q-item-label>
             </q-item-section>
 

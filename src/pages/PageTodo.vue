@@ -1,11 +1,11 @@
 <template>
     <q-page class="q-pa-md">
         <q-list
-            v-if="Object.keys(tasks).length"
+            v-if="Object.keys(tasksTodo).length"
             bordered  separator>
             
             <task v-for="(task, key) 
-                in tasks"
+                in tasksTodo"
                 :key="key"
                 :task="task"
                 :id="key"
@@ -24,9 +24,32 @@
             <q-dialog v-model="showAdTask">
                 <add-task @close="showAdTask = false" />
             </q-dialog>
+        </q-list>
 
+         <q-list
+            v-if="Object.keys(tasksCompleted).length"
+            bordered  separator>
             
-            
+            <task v-for="(task, key) 
+                in tasksCompleted"
+                :key="key"
+                :task="task"
+                :id="key"
+            ></task>
+
+            <div class="absolute-bottom text-right q-mb-lg q-mt-lg q-mr-lg">
+                <q-btn
+                    round
+                    color="primary"
+                    size="20px"
+                    icon="add"
+                    @click="showAdTask=true"
+                />
+            </div>
+
+            <q-dialog v-model="showAdTask">
+                <add-task @close="showAdTask = false" />
+            </q-dialog>
         </q-list>
     </q-page>
 </template>
@@ -44,7 +67,7 @@
             'add-task' : require('components/Modals/AddTask.vue').default,
         },
         computed:{
-            ...mapGetters('tasks', ['tasks'])
+            ...mapGetters('tasks', ['tasksTodo','tasksCompleted'])
             // tasks(){
             //     return this.$store.getters['tasks/tasks']
             // }

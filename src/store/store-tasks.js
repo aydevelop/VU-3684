@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import { uid } from 'quasar'
+import { stat } from 'fs'
 
 const state = {
     tasks:{
@@ -51,6 +52,9 @@ const mutations = {
     updateTask(state, payload){
         Object.assign(state.tasks[payload.id], payload.data)
     },
+    updateTaskComplete(state, payload){
+        state.tasks[payload.id].complete = payload.complete
+    },
     deleteTask(state, id){
        Vue.delete(state.tasks, id)
     },
@@ -61,8 +65,10 @@ const mutations = {
 
 const actions = {
     updateTask({ commit }, data){
-        //console.log("test: "+ JSON.stringify(data))
         commit('updateTask', data)
+    },
+    updateTaskComplete({ commit }, payload){
+        commit('updateTaskComplete', payload)
     },
     deleteTask({ commit }, id){
         commit('deleteTask', id)
@@ -80,8 +86,27 @@ const actions = {
 }
 
 const getters = {
-    tasks: (state) => {
-        return state.tasks
+    tasksTodo: (state) => {
+        let keys =  Object.keys(state.tasks)
+        let tasks = {}
+        keys.forEach(function(key){
+            let task = state.tasks[key]
+            if(task.complete){
+                tasks[key] = task
+            }
+        })        
+        return tasks
+    },
+    tasksCompleted: (state) => {
+        let keys =  Object.keys(state.tasks)
+        let tasks = {}
+        keys.forEach(function(key){
+            let task = state.tasks[key]
+            if(!task.complete){
+                tasks[key] = task
+            }
+        })        
+        return tasks
     }
 }
 

@@ -1,6 +1,6 @@
 <template>
     <q-item
-        @click.prevent="updateTask({ id: id, complete: !task.complete })" 
+        @click.prevent="updateTaskComplete({ id: id, complete: !task.complete })" 
         :class="task.complete ? 'bg-green-1': 'bg-orange-1'"
         tag="label" v-ripple>
             <q-item-section side top>
@@ -62,7 +62,7 @@
             showEditTask: false
          }),
         methods:{
-            ...mapActions('tasks', ['updateTask','deleteTask']),
+            ...mapActions('tasks', ['updateTask','deleteTask','updateTaskComplete']),
             itemDelete(id){
                 this.$q.dialog({
                     title: 'Confirm',

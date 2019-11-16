@@ -24,6 +24,9 @@
             <q-dialog v-model="showAdTask">
                 <add-task @close="showAdTask = false" />
             </q-dialog>
+
+            
+            
         </q-list>
     </q-page>
 </template>
@@ -33,11 +36,12 @@
 
     export default {
         data:()=>({
-            showAdTask: true
+            showAdTask: false,
+            showEditTask: true
         }),
         components:{
             'task' : require('components/Tasks/Task.vue').default,
-            'add-task' : require('components/Modals/AddTask.vue').default
+            'add-task' : require('components/Modals/AddTask.vue').default,
         },
         computed:{
             ...mapGetters('tasks', ['tasks'])

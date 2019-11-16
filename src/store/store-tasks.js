@@ -49,8 +49,7 @@ const state = {
 
 const mutations = {
     updateTask(state, payload){
-       let res = Object.assign(state.tasks[payload.id], payload)
-       console.log(JSON.stringify(res))
+        Object.assign(state.tasks[payload.id], payload.data)
     },
     deleteTask(state, id){
        Vue.delete(state.tasks, id)
@@ -61,8 +60,9 @@ const mutations = {
 }
 
 const actions = {
-    updateTask({ commit }, payload){
-        commit('updateTask', payload)
+    updateTask({ commit }, data){
+        //console.log("test: "+ JSON.stringify(data))
+        commit('updateTask', data)
     },
     deleteTask({ commit }, id){
         commit('deleteTask', id)

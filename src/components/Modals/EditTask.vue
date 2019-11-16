@@ -1,6 +1,6 @@
 <template>
     <q-card>
-        <modal-header>Add task</modal-header>
+        <modal-header>Edit task</modal-header>
 
         <form @submit.prevent="submitForm">
             <q-card-section>                
@@ -17,6 +17,7 @@
     import { mapActions } from 'vuex'
 
     export default {
+        props: ['task', 'id'],
         components:{
             'modal-header': require('components/Modals/Shared/ModalHeader.vue').default,
             'modal-task-name': require('components/Modals/Shared/ModalTaskName.vue').default,
@@ -33,7 +34,7 @@
             }
         }),
         methods:{
-            ...mapActions('tasks', ['addTask']),
+            ...mapActions('tasks', ['updateTask']),
             submitForm(){
 
                 this.$refs.name.$refs.name.validate()
@@ -50,9 +51,14 @@
 
             },
             submitTask(){
-                this.addTask(this.taskToSubmit)
+                let data = this.taskToSubmit;
+                this.updateTask({'id':this.id, data})
                 this.$emit('close')
             }
+        },
+        mounted(){
+            this.taskToSubmit = Object.assign({},this.task)
+            
         }
     }
 </script>

@@ -22,9 +22,7 @@
                 />
             </div>
 
-            <q-dialog v-model="showAdTask">
-                <add-task @close="showAdTask = false" />
-            </q-dialog>
+           
         </q-list>
     </div>
 </template>

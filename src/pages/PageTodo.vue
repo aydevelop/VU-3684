@@ -1,10 +1,14 @@
 <template>
     <q-page class="q-pa-md">
 
-        <no-tasks v-if="!Object.keys(tasksTodo).length" ></no-tasks>
+        <no-tasks @showAddTask="showAdTask=true" v-if="!Object.keys(tasksTodo).length" ></no-tasks>
         
         <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
         <tasks-todo :tasksTodo="tasksCompleted" :title="`Completed`" />
+
+         <q-dialog v-model="showAdTask">
+            <add-task @close="showAdTask = false" />
+        </q-dialog>
     </q-page>
 </template>
 

@@ -6,7 +6,7 @@
             </template>
                 No tasks to do today!
             <template v-slot:action>
-                <q-btn @click="$root.$emit('showAddTask')" flat color="primary" label="Add Task" />
+                <q-btn @click="$emit('showAddTask')" flat color="primary" label="Add Task" />
             </template>
         </q-banner>
     </div>

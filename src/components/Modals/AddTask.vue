@@ -27,7 +27,7 @@
         data:()=>({
             taskToSubmit:{
                 name: '',
-                complete: false,
+                complete: true,
                 dueDate: '',
                 dueTime: ''
             }

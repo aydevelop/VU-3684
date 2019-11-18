@@ -1,5 +1,7 @@
 <template>
-     <q-list
+    <div class="q-mb-lg q-mt-lg">       
+        <list-header>{{ title }}</list-header>  
+        <q-list
             v-if="Object.keys(tasksTodo).length"
             bordered separator>
             
@@ -24,6 +26,7 @@
                 <add-task @close="showAdTask = false" />
             </q-dialog>
         </q-list>
+    </div>
 </template>
 
 <script>
@@ -32,9 +35,10 @@
             showAdTask: false,
             showEditTask: true
         }),
-        props: ['tasksTodo'],
+        props: ['tasksTodo','title'],
         components:{
-            'task' : require('components/Tasks/Task.vue').default
+            'task' : require('components/Tasks/Task.vue').default,
+            'list-header' : require('components/Shared/ListHeader.vue').default
         }
     }
 </script>

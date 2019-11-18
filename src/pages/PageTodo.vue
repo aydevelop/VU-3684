@@ -1,7 +1,7 @@
 <template>
     <q-page class="q-pa-md">
-        <tasks-todo :tasksTodo="tasksTodo" />
-        <tasks-todo :tasksTodo="tasksCompleted" />
+        <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
+        <tasks-todo :tasksTodo="tasksCompleted" :title="`Completed`" />
     </q-page>
 </template>
 

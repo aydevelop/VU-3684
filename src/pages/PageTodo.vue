@@ -1,5 +1,8 @@
 <template>
     <q-page class="q-pa-md">
+
+        <no-tasks v-if="!Object.keys(tasksTodo).length" ></no-tasks>
+        
         <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
         <tasks-todo :tasksTodo="tasksCompleted" :title="`Completed`" />
     </q-page>
@@ -16,7 +19,8 @@
         components:{
             'task' : require('components/Tasks/Task.vue').default,
             'add-task' : require('components/Modals/AddTask.vue').default,
-            'tasks-todo' : require('components/Tasks/TasksTodo.vue').default
+            'tasks-todo' : require('components/Tasks/TasksTodo.vue').default,
+            'no-tasks' : require('components/Tasks/NoTasks.vue').default
         },
         computed:{
             ...mapGetters('tasks', ['tasksTodo','tasksCompleted'])

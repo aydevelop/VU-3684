@@ -1,5 +1,5 @@
 <template>
-    <div class="q-mb-lg q-mt-lg">       
+    <div class="q-mb-lg q-mt-lg" v-if="Object.keys(tasksTodo).length">       
         <list-header>{{ title }}</list-header>  
         <q-list
             v-if="Object.keys(tasksTodo).length"

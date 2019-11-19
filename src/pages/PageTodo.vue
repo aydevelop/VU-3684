@@ -1,6 +1,9 @@
 <template>
     <q-page class="q-pa-md">
-
+        <div class="row q-mb-lg">
+            <search />
+            {{ tasksFiltered3 }}
+        </div>
         <no-tasks @showAddTask="showAdTask=true" v-if="!Object.keys(tasksTodo).length" ></no-tasks>
         
         <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
@@ -24,10 +27,11 @@
             'task' : require('components/Tasks/Task.vue').default,
             'add-task' : require('components/Modals/AddTask.vue').default,
             'tasks-todo' : require('components/Tasks/TasksTodo.vue').default,
-            'no-tasks' : require('components/Tasks/NoTasks.vue').default
+            'no-tasks' : require('components/Tasks/NoTasks.vue').default,
+            'search' : require('components/Tools/Search.vue').default
         },
         computed:{
-            ...mapGetters('tasks', ['tasksTodo','tasksCompleted'])
+            ...mapGetters('tasks', ['tasksTodo','tasksCompleted','tasksFiltered3'])
             // tasks(){
             //     return this.$store.getters['tasks/tasks']
             // }

@@ -1,8 +1,9 @@
 <template>
     <q-page class="q-pa-md">
         <div class="row q-mb-lg">
-            <search />
-            {{ tasksFiltered3 }}
+            <!-- <search /> -->
+            <!-- {{ tasksSorted }} -->
+            <sort />
         </div>
         <no-tasks @showAddTask="showAdTask=true" v-if="!Object.keys(tasksTodo).length" ></no-tasks>
         
@@ -28,10 +29,11 @@
             'add-task' : require('components/Modals/AddTask.vue').default,
             'tasks-todo' : require('components/Tasks/TasksTodo.vue').default,
             'no-tasks' : require('components/Tasks/NoTasks.vue').default,
-            'search' : require('components/Tools/Search.vue').default
+            'search' : require('components/Tools/Search.vue').default,
+            'sort' : require('components/Tools/Sort.vue').default
         },
         computed:{
-            ...mapGetters('tasks', ['tasksTodo','tasksCompleted','tasksFiltered3'])
+            ...mapGetters('tasks', ['tasksTodo','tasksCompleted','tasksSorted'])
             // tasks(){
             //     return this.$store.getters['tasks/tasks']
             // }

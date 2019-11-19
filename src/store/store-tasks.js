@@ -11,7 +11,7 @@ const state = {
             dueTime: '18:30'
         },
         'ID2':{
-            name: 'Get bananes',
+            name: 'AGet bananes',
             complete: true,
             dueDate: '2019/05/13',
             dueTime: '19:30'
@@ -46,7 +46,8 @@ const state = {
             dueTime: '20:30'
         }
     ],
-    search_u: ""
+    search_u: "",
+    sort: "dueTime"
 }
 
 const mutations = {
@@ -64,6 +65,9 @@ const mutations = {
     },
     setSearch(state, payload){
         state.search_u = payload
+    },
+    setSort(state, payload){
+        state.sort = payload
     }
 }
 
@@ -89,10 +93,35 @@ const actions = {
     },
     setSearch({commit}, value){
         commit('setSearch', value)
+    },
+    setSort({commit}, value){
+        commit('setSort', value)
     }
 }
 
 const getters = {
+    tasksSorted: (state) => {
+        //return state.tasks;
+        
+        let tasksSort = {},
+        keys = Object.keys(state.tasks)
+
+        //return keys;
+        keys.sort((a,b) => {
+            let taskA = state.tasks[a][state.sort].toLowerCase(),
+                taskB = state.tasks[b][state.sort].toLowerCase()
+            
+            if(taskA > taskB) return 1;
+            else if(taskA < taskB) return -1;
+            else return 0;
+        })
+
+        keys.forEach((key) =>{
+            tasksSort[key] = state.tasks[key]
+        })
+
+        return tasksSort
+    },
     tasksFiltered3: (state) => {
         let tasksFiltered = {}
         if(state.search_u){
@@ -120,7 +149,7 @@ const getters = {
         return state.tasks
     },
     tasksTodo: (state, getters) => {
-        let tasksFiltered = getters.tasksFiltered
+        let tasksFiltered = getters.tasksSorted
         let keys =  Object.keys(tasksFiltered)
         let tasks = {}
         keys.forEach(function(key){
@@ -132,8 +161,8 @@ const getters = {
         return tasks
     },
     tasksCompleted: (state, getters) => {
-        let tasksFiltered = getters.tasksFiltered
-        let keys =  Object.keys(state.tasks)
+        let tasksFiltered = getters.tasksSorted
+        let keys =  Object.keys(tasksFiltered)
         let tasks = {}
         keys.forEach(function(key){
             let task = tasksFiltered[key]

@@ -1,7 +1,7 @@
 <template>
     <q-item
         @click.prevent="updateTaskComplete({ id: id, complete: !task.complete })" 
-        :class="task.complete ? 'bg-green-2': 'bg-red-2'"
+        :class="task.complete ? 'bg-red-2': 'bg-green-2'"
         tag="label" v-ripple>
             <q-item-section side top>
                 <q-checkbox

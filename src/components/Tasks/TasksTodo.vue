@@ -1,4 +1,9 @@
 <template>
+<!-- <transition
+  appear
+  enter-active-class="animated zoomIn"
+  leave-active-class="animated zoomOut"
+> -->
     <div class="q-mb-lg q-mt-lg" v-if="Object.keys(tasksTodo).length">       
         <list-header>{{ title }}</list-header>  
         <q-list
@@ -25,6 +30,7 @@
            
         </q-list>
     </div>
+    <!-- </transition> -->
 </template>
 
 <script>

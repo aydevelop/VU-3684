@@ -18,7 +18,7 @@
             <q-item-section side top>
                 <q-icon name="event" />               
                 <q-item-label caption>{{ task.dueDate }}</q-item-label>
-                <q-item-label caption>{{ task.dueTime }}</q-item-label>
+                <q-item-label caption>{{ taskDueTime }}</q-item-label>
             </q-item-section>
 
             <q-item-section side>
@@ -51,16 +51,27 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+    import { date } from 'quasar'
 
     export default {
         components:{
-            'edit-task' : require('components/Modals/EditTask.vue').default
+            'edit-task' : require('components/Modals/EditTask.vue').default,
         },
         props: ['task','id'],
         data:()=>({
             showEditTask: false
-         }),
+        }),
+        computed:{
+             ...mapState('sets', ['show12Hour']),
+            taskDueTime(){
+                if(this.show12Hour){
+                    return date
+                    .formatDate(this.task.dueDate + ' ' + this.task.dueTime, 'h:mmA');
+                }
+                return this.task.dueTime;
+            }
+        },
         methods:{
             ...mapActions('tasks', ['updateTask','deleteTask','updateTaskComplete']),
             itemDelete(id){

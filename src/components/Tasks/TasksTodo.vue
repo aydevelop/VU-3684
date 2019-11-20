@@ -5,7 +5,7 @@
   leave-active-class="animated zoomOut"
 > -->
     <div class="q-mb-lg q-mt-lg" v-if="Object.keys(tasksTodo).length">       
-        <list-header>{{ title }}</list-header>  
+        <list-header v-if="!taskOneList" >{{ title }}</list-header>  
         <q-list
             v-if="Object.keys(tasksTodo).length"
             bordered separator>
@@ -34,11 +34,16 @@
 </template>
 
 <script>
+    import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+    
     export default {
         data:()=>({
             showAdTask: false,
             showEditTask: true
         }),
+        computed:{
+            ...mapState('sets', ['taskOneList'])
+        },
         props: ['tasksTodo','title'],
         components:{
             'task' : require('components/Tasks/Task.vue').default,

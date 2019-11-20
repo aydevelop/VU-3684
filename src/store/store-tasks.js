@@ -21,42 +21,6 @@ const state = {
             complete: false,
             dueDate: '2019/05/14',
             dueTime: '20:30'
-        },
-        'ID11':{
-            name: 'Go to shop',
-            complete: false,
-            dueDate: '2019/05/12',
-            dueTime: '18:30'
-        },
-        'ID22':{
-            name: 'AGet bananes',
-            complete: true,
-            dueDate: '2019/05/13',
-            dueTime: '19:30'
-        },
-        'ID33':{
-            name: 'Get apples',
-            complete: false,
-            dueDate: '2019/05/14',
-            dueTime: '20:30'
-        },
-        'ID111':{
-            name: 'Go to shop',
-            complete: false,
-            dueDate: '2019/05/12',
-            dueTime: '18:30'
-        },
-        'ID222':{
-            name: 'AGet bananes',
-            complete: true,
-            dueDate: '2019/05/13',
-            dueTime: '19:30'
-        },
-        'ID333':{
-            name: 'Get apples',
-            complete: false,
-            dueDate: '2019/05/14',
-            dueTime: '20:30'
         }
     },
     tasks2:[

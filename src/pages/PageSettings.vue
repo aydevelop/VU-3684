@@ -1,6 +1,6 @@
 <template>
     <q-page padding>
-
+         
         <q-list bordered padding>
             <q-item-label header>Settings</q-item-label>
             <q-item tag="label" v-ripple>
@@ -12,11 +12,7 @@
                 val="battery" />
                 </q-item-section>
             </q-item>
-            {{ show12Hour }}
-        </q-list>
-
-         <q-list bordered padding>
-            <q-item-label header>Settings</q-item-label>
+            
             <q-item tag="label" v-ripple>
                 <q-item-section>
                 <q-item-label>Show tasks in one list</q-item-label>
@@ -26,7 +22,26 @@
                 val="battery" />
                 </q-item-section>
             </q-item>
-            {{ taskOneList }}
+        </q-list>
+
+         <q-list bordered padding>
+            <q-item-label header>More</q-item-label>
+            <q-item to="/settings/help" tag="label" v-ripple>
+                <q-item-section>
+                <q-item-label>Help</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                    <q-icon name="chevron_right" />
+                </q-item-section>
+            </q-item>
+            <q-item @click="visitOurWebsite" tag="label" v-ripple>
+                <q-item-section>
+                <q-item-label>Visit our website</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                    <q-icon name="chevron_right" />
+                </q-item-section>
+            </q-item>
         </q-list>
 
     </q-page>
@@ -34,6 +49,7 @@
 
 <script>
     import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+    import { openURL } from 'quasar'
 
     export default {
         data:()=>({ }),
@@ -57,7 +73,10 @@
              }
          },
          methods:{
-             ...mapMutations('sets',['setShow12Hour','setTaskOneList'])
+             ...mapMutations('sets',['setShow12Hour','setTaskOneList']),
+             visitOurWebsite(){
+                 openURL('http://www.google.com')
+             }
          }
     }
 </script>

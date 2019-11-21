@@ -15,11 +15,18 @@
           Todo list
         </q-toolbar-title>
 
-        <q-btn 
+        <q-btn v-if="!loggedIn"
           to="/auth"
           flat
           icon-right="account_circle"
           label="Login"
+          class="absolute-right" />
+        
+        <q-btn v-else
+          flat
+          @click="logoutUser"
+          icon-right="account_circle"
+          label="Logout"
           class="absolute-right" />
 
 
@@ -70,6 +77,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 export default {
   name: 'MyLayout',
 
@@ -89,6 +98,12 @@ export default {
         }
       ]
     }
+  },
+  computed:{
+    ...mapState('auth',['loggedIn'])
+  },
+  methods:{
+    ...mapActions('auth',['logoutUser'])
   }
 }
 </script>

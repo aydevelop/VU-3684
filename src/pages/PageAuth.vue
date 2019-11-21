@@ -90,19 +90,29 @@
 </template>
 
 <script>
+    import { mapState, mapGetters, mapActions } from 'vuex'
+
     export default {
         data:()=>({ 
               tab: 'login',
 
               regEmail: '',
-              regPassword: ''
+              regPassword: '',
+
+              logEmail: '',
+              logPassword: ''
         }),
         methods:{
+          ...mapActions('auth',['registerUser','loginUser']),
           regBtnClick(){
-
+            this.registerUser(
+              {"email": this.regEmail, "pass": this.regPassword}
+            );
           },
           logBtnClick(){
-
+            this.loginUser(
+              {"email": this.logEmail, "pass": this.logPassword}
+            );
           }
         }
     }

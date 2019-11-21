@@ -12,8 +12,16 @@
         />
 
         <q-toolbar-title class="absolute-center">
-          Quasar App
+          Todo list
         </q-toolbar-title>
+
+        <q-btn 
+          to="/auth"
+          flat
+          icon-right="account_circle"
+          label="Login"
+          class="absolute-right" />
+
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>

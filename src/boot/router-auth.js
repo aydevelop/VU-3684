@@ -7,7 +7,12 @@ export default async ({ router }) => {
 
       if(loggedIn){
          if(to.path != '/auth'){
-            //next('/auth')
+            if(router.currentRoute.path != '/auth'){
+               next('/auth')
+            }else{
+               next()
+            }
+            
          }else{
             console.log('1')
             next()
@@ -17,7 +22,8 @@ export default async ({ router }) => {
          next()
       }
 
-      console.log('3')
-      next()
+      //console.log("loggedIn " + loggedIn)
+      //console.log('333')
+      //next()
    })
 }

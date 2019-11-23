@@ -1,4 +1,5 @@
 import { firebaseAuth } from 'boot/firebase'
+import { Dialog } from 'quasar'
 
 const state = {
     loggedIn: false
@@ -12,12 +13,10 @@ const mutations = {
 
 const actions = {
     registerUser({}, payload){
-        firebaseAuth
+        return firebaseAuth
         .createUserWithEmailAndPassword(payload.email, payload.pass)
         .then(res => {
             console.log('resp: ', res)
-        }).catch(error => {
-            alert(error.message)
         })
     },
     loginUser({commit}, payload){

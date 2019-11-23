@@ -91,6 +91,7 @@
 
 <script>
     import { mapState, mapGetters, mapActions } from 'vuex'
+    import { Dialog } from 'quasar'
 
     export default {
         data:()=>({ 
@@ -106,9 +107,23 @@
         methods:{
           ...mapActions('auth',['registerUser','loginUser']),
           regBtnClick(){
+            this.loading = true
             this.registerUser(
               {"email": this.regEmail, "pass": this.regPassword}
-            );
+            ).then(res => {
+              this.logEmail = ''
+              this.logPassword = ''
+              this.tab = 'login'
+              this.loading = false
+            }).catch(error => {
+                Dialog.create({
+                    title: 'Error',
+                    message: error.message
+                })
+
+                this.tab = 'register'                
+                this.loading = false
+            });
           },
           logBtnClick(){
             this.loading = true;
@@ -117,7 +132,16 @@
             ).then(res => {
                 this.$router.push('/')
             }).catch(error => {
-                if(error.message){ alert(error.message) }else{alert("Error loginUser") }
+                let msg = "";
+                if(error.message){ msg = (error.message); }
+                else{ msg = "Error loginUser"; }
+                
+                console.log(msg)
+                Dialog.create({
+                    title: 'Error',
+                    message: msg
+                })
+
                 this.loading = false
             });
           }

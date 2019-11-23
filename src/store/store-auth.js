@@ -20,25 +20,30 @@ const actions = {
             alert(error.message)
         })
     },
-    loginUser({}, payload){
-        firebaseAuth
+    loginUser({commit}, payload){
+        return firebaseAuth
         .signInWithEmailAndPassword(payload.email, payload.pass)
         .then(res => {
-            console.log('resp: ', res)
-        }).catch(error => {
-            alert(error.message)
+            console.log('setLoggedIn true (loginUser)')
+            commit('setLoggedIn', true)
+            localStorage.setItem('loggedIn', true);
         })
     },
     logoutUser(){
         console.log('logoutUser')
         firebaseAuth.signOut();
+        window.location.reload()
     },
     handleAuthStateChange({commit}){
       firebaseAuth.onAuthStateChanged(function(user){
           if(user){
+            console.log('setLoggedIn true')
             commit('setLoggedIn', true)
+            localStorage.setItem('loggedIn', true);
           }else{
+            console.log('setLoggedIn false')
             commit('setLoggedIn', false)
+            localStorage.setItem('loggedIn', false);
           }
       })
     }

@@ -46,7 +46,7 @@
               </div>
               <div class="row q-mt-md">
                 <q-space></q-space>
-                <q-btn @click="logBtnClick" dense color="primary" label="Login">
+                <q-btn @click="logBtnClick" :disable="loading" :loading="loading" dense color="primary" ref="logBtn" label="Login">
                 </q-btn>
               </div>
           </q-tab-panel>
@@ -80,7 +80,7 @@
               </div>
               <div class="row q-mt-md">
                 <q-space></q-space>
-                <q-btn @click="regBtnClick" dense color="primary" label="Register">
+                <q-btn @click="regBtnClick" :disable="loading" :loading="loading" ref="regBtn" dense color="primary" label="Register">
                 </q-btn>
               </div>
           </q-tab-panel>
@@ -94,6 +94,7 @@
 
     export default {
         data:()=>({ 
+              loading: false,
               tab: 'login',
 
               regEmail: '',
@@ -110,9 +111,15 @@
             );
           },
           logBtnClick(){
+            this.loading = true;
             this.loginUser(
               {"email": this.logEmail, "pass": this.logPassword}
-            );
+            ).then(res => {
+                this.$router.push('/')
+            }).catch(error => {
+                if(error.message){ alert(error.message) }else{alert("Error loginUser") }
+                this.loading = false
+            });
           }
         }
     }

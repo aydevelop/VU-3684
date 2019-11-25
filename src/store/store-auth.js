@@ -33,13 +33,14 @@ const actions = {
         firebaseAuth.signOut();
         window.location.reload()
     },
-    handleAuthStateChange({commit}){
+    handleAuthStateChange({commit,dispatch}){
       firebaseAuth.onAuthStateChanged(function(user){
           if(user){
             console.log('setLoggedIn true')
             commit('setLoggedIn', true)
             localStorage.setItem('loggedIn', true);
-          }else{
+            dispatch('tasks/fbReadData', null, { root: true})
+        }else{
             console.log('setLoggedIn false')
             commit('setLoggedIn', false)
             localStorage.setItem('loggedIn', false);

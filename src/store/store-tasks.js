@@ -68,6 +68,9 @@ const mutations = {
     },
     setSort(state, payload){
         state.sort = payload
+    },
+    fbReadData({commit}){
+        console.log('start reading data from FB')
     }
 }
 

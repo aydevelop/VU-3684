@@ -103,22 +103,37 @@ const actions = {
         commit('setSort', value)
     },
 
-    fbReadData({commit}){
-        console.log("398238989!!!!")
+    fbReadData({commit}){ 
         let userId = (firebaseAuth.currentUser.uid)
-        let userTasks = firebaseDb.ref('tasks/' + userId)
-    
-        //console.log('123'+userTasks)
-        userTasks.on('child_added', snap =>{
-            console.log('snap ' + snap)
-            let task = snap.val()
+        let userTasks = firebaseDb.ref('tasks/'+userId)
         
-            let payload = {
+        userTasks.on('child_added', snap =>{
+            let task = snap.val()
+            let payload =
+             {
                 id: snap.key,
                 task: task
             }
+            console.log('addTask')
+            //commit('addTask', payload)
+        })
 
-            commit('addTask', payload)
+        userTasks.on('child_changed', snap =>{
+            let task = snap.val()
+            let payload =
+             {
+                id: snap.key,
+                task: task
+            } 
+            console.log('updateTask ' + JSON.stringify(payload))
+            //commit('addTask', payload)
+        })
+
+        userTasks.on('child_removed', snap =>{
+            let taskId = snap.key
+
+            console.log('deleteTask ' + taskId)
+            //commit('addTask', payload)
         })
     }
 }

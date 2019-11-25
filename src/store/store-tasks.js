@@ -86,7 +86,7 @@ const actions = {
     deleteTask({ commit }, id){
         commit('deleteTask', id)
     },
-    addTask({ commit }, task){
+    addTask({ dispatch }, task){
         
         let taskId = uid() 
         let payload = {
@@ -94,7 +94,9 @@ const actions = {
             task: task
         }
 
-        commit('addTask', payload)
+        let userId = (firebaseAuth.currentUser.uid)
+        let tref = firebaseDb.ref('tasks/'+userId+"/"+payload.id)
+        tref.set(payload.task)
     },
     setSearch({commit}, value){
         commit('setSearch', value)
@@ -114,8 +116,7 @@ const actions = {
                 id: snap.key,
                 task: task
             }
-            console.log('addTask')
-            //commit('addTask', payload)
+            commit('addTask', payload)
         })
 
         userTasks.on('child_changed', snap =>{
@@ -123,17 +124,14 @@ const actions = {
             let payload =
              {
                 id: snap.key,
-                task: task
+                data: task
             } 
-            console.log('updateTask ' + JSON.stringify(payload))
-            //commit('addTask', payload)
+            commit('updateTask', payload)
         })
 
         userTasks.on('child_removed', snap =>{
             let taskId = snap.key
-
-            console.log('deleteTask ' + taskId)
-            //commit('addTask', payload)
+            commit('deleteTask', taskId)
         })
     }
 }

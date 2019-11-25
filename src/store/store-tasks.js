@@ -77,14 +77,20 @@ const mutations = {
 }
 
 const actions = {
-    updateTask({ commit }, data){
-        commit('updateTask', data)
+    updateTask({ commit }, payload){
+        let userId = (firebaseAuth.currentUser.uid)
+        let tref = firebaseDb.ref('tasks/'+userId+"/"+payload.id)
+        tref.update(payload.task)
     },
-    updateTaskComplete({ commit }, payload){
-        commit('updateTaskComplete', payload)
+    updateTaskComplete({ commit,dispatch }, payload){
+        console.log("updateTaskComplete - " + JSON.stringify(payload))
+        dispatch('updateTask', {id:payload.id, task:{complete:payload.complete}})
     },
     deleteTask({ commit }, id){
-        commit('deleteTask', id)
+        console.log('deleteTask + ', id)
+        let userId = (firebaseAuth.currentUser.uid)
+        let tref = firebaseDb.ref('tasks/'+userId+"/"+id)
+        tref.remove()
     },
     addTask({ dispatch }, task){
         

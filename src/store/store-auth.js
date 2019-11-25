@@ -40,6 +40,7 @@ const actions = {
             commit('setLoggedIn', true)
             localStorage.setItem('loggedIn', true);
             dispatch('tasks/fbReadData', null, { root: true})
+            
         }else{
             console.log('setLoggedIn false')
             commit('setLoggedIn', false)

@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import { uid } from 'quasar'
 import { stat } from 'fs'
+import { firebaseDb} from 'boot/firebase'
+import { firebaseAuth } from '../boot/firebase'
 
 const state = {
     tasks:{
+
+    },
+    tasks3:{
         'ID1':{
             name: 'Go to shop',
             complete: false,
@@ -68,9 +73,6 @@ const mutations = {
     },
     setSort(state, payload){
         state.sort = payload
-    },
-    fbReadData({commit}){
-        console.log('start reading data from FB')
     }
 }
 
@@ -99,6 +101,25 @@ const actions = {
     },
     setSort({commit}, value){
         commit('setSort', value)
+    },
+
+    fbReadData({commit}){
+        console.log("398238989!!!!")
+        let userId = (firebaseAuth.currentUser.uid)
+        let userTasks = firebaseDb.ref('tasks/' + userId)
+    
+        //console.log('123'+userTasks)
+        userTasks.on('child_added', snap =>{
+            console.log('snap ' + snap)
+            let task = snap.val()
+        
+            let payload = {
+                id: snap.key,
+                task: task
+            }
+
+            commit('addTask', payload)
+        })
     }
 }
 

@@ -1,5 +1,6 @@
 import { firebaseAuth } from 'boot/firebase'
 import { Dialog } from 'quasar'
+import { LocalStorage, SessionStorage } from 'quasar'
 
 const state = {
     loggedIn: false
@@ -25,11 +26,11 @@ const actions = {
         .then(res => {
             console.log('setLoggedIn true (loginUser)')
             commit('setLoggedIn', true)
-            localStorage.setItem('loggedIn', true);
+            localStorage.setItem('loggedIn', 1);
         })
     },
     logoutUser(){
-        console.log('logoutUser')
+        localStorage.setItem('loggedIn', 0);
         firebaseAuth.signOut();
         window.location.reload()
     },
@@ -38,13 +39,13 @@ const actions = {
           if(user){
             console.log('setLoggedIn true')
             commit('setLoggedIn', true)
-            localStorage.setItem('loggedIn', true);
+            localStorage.setItem('loggedIn', 1);
             dispatch('tasks/fbReadData', null, { root: true})
             
         }else{
             console.log('setLoggedIn false')
             commit('setLoggedIn', false)
-            localStorage.setItem('loggedIn', false);
+            localStorage.setItem('loggedIn', 0);
           }
       })
     }

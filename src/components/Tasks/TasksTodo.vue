@@ -17,15 +17,7 @@
                 :id="key"
             ></task>
 
-            <div class="absolute-bottom text-right q-mb-lg q-mt-lg q-mr-lg">
-                <q-btn
-                    round
-                    color="primary"
-                    size="20px"
-                    icon="add"
-                    @click="showAdTask=true"
-                />
-            </div>
+           
 
            
         </q-list>

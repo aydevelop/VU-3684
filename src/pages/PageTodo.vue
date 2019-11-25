@@ -10,6 +10,16 @@
         <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
         <tasks-todo :tasksTodo="tasksCompleted" :title="`Completed`" />
 
+          <div class="absolute-bottom text-right q-mb-lg q-mt-lg q-mr-lg">
+                <q-btn
+                    round
+                    color="primary"
+                    size="20px"
+                    icon="add"
+                    @click="showAdTask=true"
+                />
+            </div>
+
          <q-dialog v-model="showAdTask">
             <add-task @close="showAdTask = false" />
         </q-dialog>

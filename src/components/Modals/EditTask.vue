@@ -52,7 +52,7 @@
             },
             submitTask(){
                 let data = this.taskToSubmit;
-                this.updateTask({'id':this.id, data})
+                this.updateTask({'id':this.id, 'task': data})
                 this.$emit('close')
             }
         },

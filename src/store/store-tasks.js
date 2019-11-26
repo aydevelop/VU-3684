@@ -8,6 +8,7 @@ const state = {
     tasks:{
 
     },
+    tasksDownloaded: false,
     tasks3:{
         'ID1':{
             name: 'Go to shop',
@@ -73,11 +74,15 @@ const mutations = {
     },
     setSort(state, payload){
         state.sort = payload
+    },
+    setTasksDownloaded(state, value){
+        state.tasksDownloaded = value
     }
 }
 
 const actions = {
     updateTask({ commit }, payload){
+        console.log("updateTask")
         let userId = (firebaseAuth.currentUser.uid)
         let tref = firebaseDb.ref('tasks/'+userId+"/"+payload.id)
         tref.update(payload.task)
@@ -115,6 +120,10 @@ const actions = {
         let userId = (firebaseAuth.currentUser.uid)
         let userTasks = firebaseDb.ref('tasks/'+userId)
         
+        userTasks.once('value', snap =>{
+            commit('setTasksDownloaded', true)
+        })
+
         userTasks.on('child_added', snap =>{
             let task = snap.val()
             let payload =

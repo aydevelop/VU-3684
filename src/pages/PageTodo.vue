@@ -1,12 +1,23 @@
 <template>
     <q-page class="q-pa-md">
-        <div class="row q-mb-lg">
+        <template v-if="!tasksDownloaded">
+            <div class="text-center q-mt-lg">
+                <q-spinner
+                    color="primary"
+                    size="3em"
+                /> 
+            </div>
+        </template>
+
+        <template  v-else>
+            <div class="row q-mb-lg">
             <!-- <search /> -->
             <!-- {{ tasksSorted }} -->
             <sort />
         </div>
         <no-tasks @showAddTask="showAdTask=true" v-if="!Object.keys(tasksTodo).length" ></no-tasks>
-        
+        </template>
+
         <tasks-todo :tasksTodo="tasksTodo" :title="`Todo`" />
         <tasks-todo :tasksTodo="tasksCompleted" :title="`Completed`" />
 
@@ -27,7 +38,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapState } from 'vuex'
 
     export default {
         data:()=>({
@@ -43,7 +54,8 @@
             'sort' : require('components/Tools/Sort.vue').default
         },
         computed:{
-            ...mapGetters('tasks', ['tasksTodo','tasksCompleted','tasksSorted'])
+            ...mapGetters('tasks', ['tasksTodo','tasksCompleted','tasksSorted']),
+            ...mapState('tasks',['tasksDownloaded'])
             // tasks(){
             //     return this.$store.getters['tasks/tasks']
             // }

@@ -1,8 +1,9 @@
 import Vue from 'vue'
-import { uid } from 'quasar'
+import { uid, Notify } from 'quasar'
 import { stat } from 'fs'
 import { firebaseDb} from 'boot/firebase'
 import { firebaseAuth } from '../boot/firebase'
+import errorShow from 'src/functions/ShowError.js'
 
 const state = {
     tasks:{
@@ -85,7 +86,11 @@ const actions = {
         console.log("updateTask")
         let userId = (firebaseAuth.currentUser.uid)
         let tref = firebaseDb.ref('tasks/'+userId+"/"+payload.id)
-        tref.update(payload.task)
+        tref.update(payload.task,error =>{
+            if(error){
+                errorShow(error.message)
+            }
+        })
     },
     updateTaskComplete({ commit,dispatch }, payload){
         console.log("updateTaskComplete - " + JSON.stringify(payload))
@@ -95,7 +100,11 @@ const actions = {
         console.log('deleteTask + ', id)
         let userId = (firebaseAuth.currentUser.uid)
         let tref = firebaseDb.ref('tasks/'+userId+"/"+id)
-        tref.remove()
+        tref.remove(error =>{
+            if(error){
+                errorShow(error.message)
+            }
+        })
     },
     addTask({ dispatch }, task){
         
@@ -107,7 +116,11 @@ const actions = {
 
         let userId = (firebaseAuth.currentUser.uid)
         let tref = firebaseDb.ref('tasks/'+userId+"/"+payload.id)
-        tref.set(payload.task)
+        tref.set(payload.task, error =>{
+            if(error){
+                errorShow(error.message)
+            }
+        })
     },
     setSearch({commit}, value){
         commit('setSearch', value)
@@ -122,6 +135,10 @@ const actions = {
         
         userTasks.once('value', snap =>{
             commit('setTasksDownloaded', true)
+        },error =>{
+            if(error){
+                errorShow(error.message)
+            }
         })
 
         userTasks.on('child_added', snap =>{
